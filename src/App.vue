@@ -1,26 +1,73 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="container pt-1">
+    <div class="card">
+      <h2>Актуальные новости на {{ now }}</h2>
+      <span>Открыто: <strong>{{ openRate }}</strong> | Прочитано: <strong>{{ readRate }}</strong></span>
+    </div>
+    <app-news
+        v-for="item in news"
+        :key="item.id"
+        :id="item.id"
+        :title="item.title"
+        :is-open="item.isOpen"
+        :was-read="item.wasRead"
+        @news-open="newsOpen"
+        @news-mark="newsMark"
+        @news-unmark="newsUnmark"
+    ></app-news>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import AppNews from "@/AppNews";
 
 export default {
-  name: 'App',
+  data() {
+    return {
+      now: new Date().toLocaleDateString(),
+      openRate: 0,
+      readRate: 0,
+      news: [
+        {
+          id: 1,
+          title: '1 Lorem ipsum dolor sit amet.',
+          isOpen: false,
+          wasRead: false
+        },
+        {
+          id: 2,
+          title: '2 Lorem ipsum dolor sit amet, consectetur.',
+          isOpen: true,
+          wasRead: false
+        }
+      ]
+    }
+  },
+  methods: {
+    newsOpen() {
+      this.openRate++
+    },
+
+    newsMark(id) {
+      const news = this.news.find(el=>el.id===id)
+      news.wasRead =true
+      this.readRate++
+    },
+
+    newsUnmark(id) {
+      const news = this.news.find(el=>el.id===id)
+      news.wasRead =false
+      this.readRate--
+    }
+
+  },
+
   components: {
-    HelloWorld
+    'app-news': AppNews
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
