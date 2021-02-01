@@ -12,6 +12,7 @@
           recusandae tempora unde.
         </p>
         <app-button color="primary" v-if="!wasRead" @action="mark">Прочесть новость</app-button>
+        <app-news-list></app-news-list>
       </div>
     </div>
   </div>
@@ -19,6 +20,7 @@
 
 <script>
 import AppButton from "@/AppButton";
+import AppNewsList from "@/AppNewsList";
 
 export default {
   name: "AppNews.vue",
@@ -83,7 +85,7 @@ export default {
 
   },
 
-  components: {AppButton}
+  components: {AppNewsList, AppButton}
 }
 </script>
 

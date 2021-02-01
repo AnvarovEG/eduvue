@@ -43,20 +43,26 @@ export default {
       ]
     }
   },
+  provide() {
+    return {
+      news: this.news,
+    }
+  }
+  ,
   methods: {
     newsOpen() {
       this.openRate++
     },
 
     newsMark(id) {
-      const news = this.news.find(el=>el.id===id)
-      news.wasRead =true
+      const news = this.news.find(el => el.id === id)
+      news.wasRead = true
       this.readRate++
     },
 
     newsUnmark(id) {
-      const news = this.news.find(el=>el.id===id)
-      news.wasRead =false
+      const news = this.news.find(el => el.id === id)
+      news.wasRead = false
       this.readRate--
     }
 
@@ -68,6 +74,13 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+h2 {
+  color: darkred;
+}
+
+h3 {
+  color: darkblue;
+}
 
 </style>
